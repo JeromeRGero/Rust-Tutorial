@@ -12,7 +12,8 @@ fn main() {
     // data_types_demo();
     // ternary_demo();
     // match_demo();
-    array_demo();
+    // array_looping_demo();
+    tuple_demo();
 }
 
 pub fn greet_user() {
@@ -85,7 +86,6 @@ pub fn data_types_demo() {
 pub fn ternary_demo() {
     let my_age: i32 = 30;
     let can_vote = if my_age >= 18 { true } else { false };
-    // This is so fucking sick.
     println!(
         "{} years old ability to vote is {}",
         my_age, 
@@ -110,13 +110,15 @@ pub fn match_demo() {
     }
 }
 
-pub fn array_demo() {
+pub fn array_looping_demo() {
     let arr_1 = [1,2,3,4];
+    
     println!("1st: {}", arr_1[0]);
-    // Get the length
     println!("length: {}", arr_1.len());
+    
     let mut arr_2 = [1,2,3,4,5,6,7,8,9];
     let mut loop_idx = 0;
+    
     loop {
         if arr_2[loop_idx] % 2 == 0 {
             loop_idx += 1;
@@ -130,4 +132,16 @@ pub fn array_demo() {
         println!("Val: {}", arr_2[loop_idx]);
         loop_idx += 1
     }
+    
+    loop_idx = 0;
+    print!("Array 2 contains: ");
+    while loop_idx < arr_2.len() {
+        print!("{} ", arr_2[loop_idx]);
+        loop_idx += 1;
+    }
+
+    for val in arr_2.iter() {
+        print!("{} ", val);
+    }
+
 }
