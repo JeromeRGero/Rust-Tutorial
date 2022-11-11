@@ -1,4 +1,4 @@
-# Derek Banas Rust Tut  
+# Derek Banas Rust Tutorial
 [Rust Tutorial Full Course](https://www.youtube.com/watch?v=ygL_xcavzQ4)  
 Just running through a very good tutorial on YouTube for [Rust](https://www.youtube.com/watch?v=Q3AhzHq8ogs&list=PLZaoyhMXgBzoM9bfb5pyUOT3zjnaDdSEP).  
 
