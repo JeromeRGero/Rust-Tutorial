@@ -7,12 +7,12 @@ use std::io;
 use std::io::{BufRead, BufReader, ErrorKind, Write};
 
 fn main() {
-    // greet_user();
-    // var_demo();
-    // data_types_demo();
-    // ternary_demo();
-    // match_demo();
-    // array_looping_demo();
+    greet_user();
+    var_demo();
+    data_types_demo();
+    ternary_demo();
+    match_demo();
+    array_looping_demo();
     tuple_demo();
 }
 
@@ -143,5 +143,13 @@ pub fn array_looping_demo() {
     for val in arr_2.iter() {
         print!("{} ", val);
     }
+}
+
+pub fn tuple_demo() {
+    let my_tuple: (u8, String, f64) = (30, "Jerome".to_string(), 68_000.00);
+    println!("Name: {}, Age: {}, Something: {}", my_tuple.1, my_tuple.0, my_tuple.2);
+    // A perfect example of pattern matching.
+    let (v1, v2, v3) = my_tuple;
+}
 
 }
