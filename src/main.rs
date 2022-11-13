@@ -7,13 +7,14 @@ use std::io;
 use std::io::{BufRead, BufReader, ErrorKind, Write};
 
 fn main() {
-    greet_user();
-    var_demo();
-    data_types_demo();
-    ternary_demo();
-    match_demo();
-    array_looping_demo();
-    tuple_demo();
+    // greet_user();
+    // var_demo();
+    // data_types_demo();
+    // ternary_demo();
+    // match_demo();
+    // array_looping_demo();
+    // tuple_demo();
+    string_demo();
 }
 
 pub fn greet_user() {
@@ -152,4 +153,43 @@ pub fn tuple_demo() {
     let (v1, v2, v3) = my_tuple;
 }
 
+pub fn string_demo() {
+    let mut char_name = String::new();
+    let mut desired_char_name = String::new();
+    char_name.push('C');
+    char_name.push_str("hara");
+    println!("What is your characters name?");
+    io::stdin()
+        .read_line(&mut desired_char_name)
+        .expect("No name entered.");
+    
+    desired_char_name = desired_char_name.trim_end().to_string();
+    
+    println!("No... your name is not {}, its {}.", desired_char_name, char_name);
+    for word in desired_char_name.split_whitespace() {
+        println!("{},", word);
+    }
+
+    let replaced: String = desired_char_name.replace("Jerome", "Chara");
+    for word in replaced.split_whitespace() {
+        println!("{},", word);
+    }
+    
+    let friend = String::from("YouYouYouYouYou");
+    let mut v1: Vec<char> = friend.chars().collect();
+    v1.sort();
+    v1.dedup();
+    for chara in v1 {
+        println!("{}", chara);
+    }
+
+    let st4: &str = "Random string";
+    let mut st5: String = st4.to_string();
+    println!("{}", st5);
+
+    let btye = st5.as_bytes();
+    let st6 = &st5[0..=5];
+    println!("String length: {}", st6.len());
+
+    st5.clear();
 }
