@@ -4,16 +4,17 @@ use rand::Rng;
 use std::cmp::Ordering;
 use std::fs::File;
 use std::io;
-use std::io::{BufRead, BufReader, ErrorKind, Write};
+use std::io::{ BufRead, BufReader, ErrorKind, Write };
 
 fn main() {
-    greet_user();
-    var_demo();
-    data_types_demo();
-    ternary_demo();
-    match_demo();
-    array_looping_demo();
-    tuple_demo();
+    // greet_user();
+    // var_demo();
+    // data_types_demo();
+    // ternary_demo();
+    // match_demo();
+    // array_looping_demo();
+    // tuple_demo();
+    string_demo();
 }
 
 pub fn greet_user() {
@@ -140,6 +141,7 @@ pub fn array_looping_demo() {
         loop_idx += 1;
     }
 
+    print!("\nArray 2 contains: ");
     for val in arr_2.iter() {
         print!("{} ", val);
     }
@@ -150,6 +152,22 @@ pub fn tuple_demo() {
     println!("Name: {}, Age: {}, Something: {}", my_tuple.1, my_tuple.0, my_tuple.2);
     // A perfect example of pattern matching.
     let (v1, v2, v3) = my_tuple;
+    println!("Name: {}, Age: {}, Something: {}", v2, v1, v3);
 }
 
+pub fn string_demo() {
+    let mut character_name = String::new();
+    println!("Hello... please enter your character's name:");
+    io::stdin()
+        .read_line(&mut character_name)
+        .expect("Name not entered.");
+    println!("{}? No... your name is...", character_name.trim_end());
+    character_name = String::from("Chara");
+    println!("???: {}? Are you awake?", character_name);
+}
+
+pub fn casting_demo() {
+    let int1_u8: u8 = 8;
+    let int2_u8: u8 = 4;
+    let int1_u32: u32 = (int1_u8 as u32) + (int2_u8 as u32);
 }
