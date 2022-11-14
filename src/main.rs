@@ -14,7 +14,8 @@ fn main() {
     // match_demo();
     // array_looping_demo();
     // tuple_demo();
-    string_demo();
+    // string_demo();
+    enum_demo();
 }
 
 pub fn greet_user() {
@@ -170,4 +171,38 @@ pub fn casting_demo() {
     let int1_u8: u8 = 8;
     let int2_u8: u8 = 4;
     let int1_u32: u32 = (int1_u8 as u32) + (int2_u8 as u32);
+}
+
+pub fn enum_demo() {
+    enum Days {
+        Monday,
+        Tuesday,
+        Wednesday,
+        Thursday,
+        Friday,
+        Saturday,
+        Sunday
+    }
+
+    impl Days {
+        fn is_weekend(&self) -> bool {
+            match self {
+                Days::Saturday | Days::Sunday => true,
+                _ => false
+            }
+        }
+    }
+
+    let today: Days = Days::Sunday;
+    match today {
+        Days::Monday => println!("I hate Mondays ;w;"),
+        Days::Tuesday => println!("Donut day? owo"),
+        Days::Wednesday => println!("Hump and fuck day~"),
+        Days::Thursday => println!("void"),
+        Days::Friday => println!("I'm so close!"),
+        _ => println!("Weekend")
+
+    }
+
+    println!("Is today the weekend?... {}", if today.is_weekend() {"YES"} else {"NUH"});
 }
