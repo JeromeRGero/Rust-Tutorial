@@ -15,7 +15,8 @@ fn main() {
     // array_looping_demo();
     // tuple_demo();
     // string_demo();
-    enum_demo();
+    // enum_demo();
+    vectors_demo();
 }
 
 pub fn greet_user() {
@@ -152,8 +153,8 @@ pub fn tuple_demo() {
     let my_tuple: (u8, String, f64) = (30, "Jerome".to_string(), 68_000.00);
     println!("Name: {}, Age: {}, Something: {}", my_tuple.1, my_tuple.0, my_tuple.2);
     // A perfect example of pattern matching.
-    let (v1, v2, v3) = my_tuple;
-    println!("Name: {}, Age: {}, Something: {}", v2, v1, v3);
+    let (age, name, monies) = my_tuple;
+    println!("Name: {}, Age: {}, Something: {}", name, age, monies);
 }
 
 pub fn string_demo() {
@@ -162,9 +163,9 @@ pub fn string_demo() {
     io::stdin()
         .read_line(&mut character_name)
         .expect("Name not entered.");
-    println!("{}? No... your name is...", character_name.trim_end());
+    println!("{}? Such a good choice. Yet, no... your name is...", character_name.trim_end());
     character_name = String::from("Chara");
-    println!("???: {}? Are you awake?", character_name);
+    println!("???: {}!? What are you doing???\nAre you awake yet and ready to go?", character_name);
 }
 
 pub fn casting_demo() {
@@ -196,8 +197,8 @@ pub fn enum_demo() {
     let today: Days = Days::Sunday;
     match today {
         Days::Monday => println!("I hate Mondays ;w;"),
-        Days::Tuesday => println!("Donut day? owo"),
-        Days::Wednesday => println!("Hump and fuck day~"),
+        Days::Tuesday => println!("Donut day?"),
+        Days::Wednesday => println!("Hump day"),
         Days::Thursday => println!("void"),
         Days::Friday => println!("I'm so close!"),
         _ => println!("Weekend")
@@ -205,4 +206,24 @@ pub fn enum_demo() {
     }
 
     println!("Is today the weekend?... {}", if today.is_weekend() {"YES"} else {"NUH"});
+}
+
+pub fn vectors_demo() {
+    // vectors are like arrays, in that they can grow if mutable.
+    // they can only store values of the same type.
+    let vec1: Vec<i32> = Vec::new();
+    let mut vec2 = vec![1,2,3,4];
+    let mut vec3 = vec![5,6,7];
+    vec2.append(&mut vec3.clone());
+    assert_eq!(vec2, vec![1,2,3,4,5,6,7]);
+    vec3.append(&mut vec2.clone());
+    println!("vec3:");
+    for ele in &vec3 {
+        print!("{}", ele);
+    }
+    vec3.sort();
+    println!("\nsorted vec3:");
+    for ele in &vec3 {
+        print!("{}", ele);
+    }
 }
