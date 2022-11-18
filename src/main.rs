@@ -4,7 +4,7 @@ use rand::Rng;
 use std::cmp::Ordering;
 use std::fs::File;
 use std::io;
-use std::io::{BufRead, BufReader, ErrorKind, Write};
+use std::io::{ BufRead, BufReader, ErrorKind, Write };
 
 fn main() {
     // greet_user();
@@ -14,7 +14,9 @@ fn main() {
     // match_demo();
     // array_looping_demo();
     // tuple_demo();
-    string_demo();
+    // string_demo();
+    // enum_demo();
+    vectors_demo();
 }
 
 pub fn greet_user() {
@@ -141,6 +143,7 @@ pub fn array_looping_demo() {
         loop_idx += 1;
     }
 
+    print!("\nArray 2 contains: ");
     for val in arr_2.iter() {
         print!("{} ", val);
     }
@@ -150,7 +153,8 @@ pub fn tuple_demo() {
     let my_tuple: (u8, String, f64) = (30, "Jerome".to_string(), 68_000.00);
     println!("Name: {}, Age: {}, Something: {}", my_tuple.1, my_tuple.0, my_tuple.2);
     // A perfect example of pattern matching.
-    let (v1, v2, v3) = my_tuple;
+    let (age, name, monies) = my_tuple;
+    println!("Name: {}, Age: {}, Something: {}", name, age, monies);
 }
 
 pub fn string_demo() {
@@ -192,4 +196,64 @@ pub fn string_demo() {
     println!("String length: {}", st6.len());
 
     st5.clear();
+}
+
+pub fn casting_demo() {
+    let int1_u8: u8 = 8;
+    let int2_u8: u8 = 4;
+    let int1_u32: u32 = (int1_u8 as u32) + (int2_u8 as u32);
+}
+
+pub fn enum_demo() {
+    enum Days {
+        Monday,
+        Tuesday,
+        Wednesday,
+        Thursday,
+        Friday,
+        Saturday,
+        Sunday
+    }
+
+    impl Days {
+        fn is_weekend(&self) -> bool {
+            match self {
+                Days::Saturday | Days::Sunday => true,
+                _ => false
+            }
+        }
+    }
+
+    let today: Days = Days::Sunday;
+    match today {
+        Days::Monday => println!("I hate Mondays ;w;"),
+        Days::Tuesday => println!("Donut day?"),
+        Days::Wednesday => println!("Hump day"),
+        Days::Thursday => println!("void"),
+        Days::Friday => println!("I'm so close!"),
+        _ => println!("Weekend")
+
+    }
+
+    println!("Is today the weekend?... {}", if today.is_weekend() {"YES"} else {"NUH"});
+}
+
+pub fn vectors_demo() {
+    // vectors are like arrays, in that they can grow if mutable.
+    // they can only store values of the same type.
+    let vec1: Vec<i32> = Vec::new();
+    let mut vec2 = vec![1,2,3,4];
+    let mut vec3 = vec![5,6,7];
+    vec2.append(&mut vec3.clone());
+    assert_eq!(vec2, vec![1,2,3,4,5,6,7]);
+    vec3.append(&mut vec2.clone());
+    println!("vec3:");
+    for ele in &vec3 {
+        print!("{}", ele);
+    }
+    vec3.sort();
+    println!("\nsorted vec3:");
+    for ele in &vec3 {
+        print!("{}", ele);
+    }
 }
