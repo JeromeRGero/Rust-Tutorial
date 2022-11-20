@@ -1,6 +1,7 @@
 #![allow(unused)]
 
 use rand::Rng;
+use core::num;
 use std::cmp::Ordering;
 use std::fs::File;
 use std::io;
@@ -15,8 +16,10 @@ fn main() {
     // array_looping_demo();
     // tuple_demo();
     // string_demo();
+    // casting_demo();
     // enum_demo();
-    vectors_demo();
+    // vectors_demo();
+    functions_demo();
 }
 
 pub fn greet_user() {
@@ -241,7 +244,7 @@ pub fn enum_demo() {
 pub fn vectors_demo() {
     // vectors are like arrays, in that they can grow if mutable.
     // they can only store values of the same type.
-    let vec1: Vec<i32> = Vec::new();
+    let mut vec1: Vec<i32> = Vec::new();
     let mut vec2 = vec![1,2,3,4];
     let mut vec3 = vec![5,6,7];
     vec2.append(&mut vec3.clone());
@@ -249,11 +252,83 @@ pub fn vectors_demo() {
     vec3.append(&mut vec2.clone());
     println!("vec3:");
     for ele in &vec3 {
-        print!("{}", ele);
+        println!("{}", ele);
     }
     vec3.sort();
     println!("\nsorted vec3:");
     for ele in &vec3 {
-        print!("{}", ele);
+        println!("{}", ele);
     }
+
+    // Add values to the end of a vector
+    vec1.push(5);
+    vec1.push(55);
+    vec1.push(555);
+    vec1.push(-5);
+
+    println!("3rd : {}", vec2[2]);
+
+    // Verify value exists
+    let second: &i32 = &vec2[1];
+
+    match vec2.get(1) {
+        Some(second) => println!("2nd : {}", second),
+        None => println!("No 2nd value in vec2."),
+    };
+
+    let mut i = 0;
+    for val in &mut vec2 {
+        *val *= 2;
+        i += 1;
+        println!("idx: {}, val: {}", i, val);
+    }
+
+    let mut i = 0;
+    for val in &mut vec2 {
+        i += 1;
+        println!("idx: {}, val: {}", i, val);
+    }
+
+     // Get number of values in a vector
+    println!("Vec Length : {}", &vec2.len());
+
+     let mut i = 0;
+    for val in &mut vec2 {
+        i += 1;
+        println!("idx: {}, val: {}", i, val);
+    }
+
+    // Remove and return the last value
+    println!("Pop {:?}", &mut vec2.to_vec().pop());
+    println!("Vec Length : {}", vec2.len());
+
+    // Remove and return the last value
+    println!("Pop {:?}", vec2.clone().to_owned().pop());
+    println!("Vec Length : {}", vec2.len());
+
+    // Remove and return the last value
+    println!("Pop {:?}", &mut vec2.pop());
+    println!("Vec Length : {}", vec2.len());
+
+}
+
+fn functions_demo() {
+    let x = 50;
+    let (plus, times) = get_two_from_1(x);
+    println!("{}, plus 2: {}, times 2: {}", x, plus, times);
+
+    let num_list = vec![0,1,2,3,4,5,6,7,8,9,10];
+    let sum = sum_list(&num_list);
+    let num_list_squared: Vec<i32> = num_list.iter().map(|x| x*x).collect();
+    num_list_squared.iter().for_each(|x| println!("{}", x));
+}
+
+fn get_two_from_1(x: i32) -> (i32, i32) {
+    return (x+2, x*2);
+}
+
+fn sum_list(list: &[i32]) -> i32 {
+    let sum = list.into_iter().sum();
+    println!("sum: {}", sum);
+    return sum;
 }
