@@ -3,24 +3,12 @@
 use rand::Rng;
 use core::num;
 use std::cmp::Ordering;
+use std::collections::HashMap;
 use std::fs::File;
 use std::io;
 use std::io::{ BufRead, BufReader, ErrorKind, Write };
-
-fn main() {
-    // greet_user();
-    // var_demo();
-    // data_types_demo();
-    // ternary_demo();
-    // match_demo();
-    // array_looping_demo();
-    // tuple_demo();
-    // string_demo();
-    // casting_demo();
-    // enum_demo();
-    // vectors_demo();
-    functions_demo();
-}
+use std::ops::Add;
+use std::any::type_name;
 
 pub fn greet_user() {
     let mut name = String::new();
@@ -131,7 +119,7 @@ pub fn array_looping_demo() {
             // restarts the loop, the rest of the code in the loop will not execute.
             continue;
         }
-        if arr_2[loop_idx] == 9 {
+        if arr_2[loop_idx] >= 9 {
             // exits the loop && stops its execution.
             break;
         }
@@ -331,4 +319,99 @@ fn sum_list(list: &[i32]) -> i32 {
     let sum = list.into_iter().sum();
     println!("sum: {}", sum);
     return sum;
+}
+
+fn generics_demo() {
+    let (a, b, c) = (5.2, 4.7, 9.9);
+    let (x, y, z) = (5, 4, 9);
+    let test_one = assert_eq!(c, get_sum_gen(a, b));
+    println!("{}", type_of(test_one));
+    println!("{}", type_of(&test_one));
+    println!("{} + {} = {}, this is {:#?}", a, b, c, assert_eq!(c, get_sum_gen(a, b)));
+    println!("{} + {} = {}, this is {:#?}", x, y, z, assert_eq!(z, get_sum_gen(x, y)));
+}
+
+fn get_sum_gen<T:Add<Output = T>>(x: T, y: T) -> T {
+    return x + y;
+}
+
+fn type_of<T>(_: T) -> &'static str {
+    type_name::<T>()
+}
+
+fn ownership_demo() {
+    let str1 = String::from("World");
+    let str2 = str1.clone();
+    println!("{}", str1);
+    ps(str1.clone());
+    let mut str3 = prs(str1);
+    cs(&mut str3);
+}
+
+fn ps(x: String) {
+    println!("test: {}", x);
+}
+
+fn prs(x: String) -> String {
+    println!("test: {}", x);
+    x
+}
+
+fn cs(x: &mut String) {
+    x.push_str(" is a string");
+    println!("message: {}", x);
+}
+
+// fn player_starts() -> bool {                                                    
+//     println!("Who will start (me/you)");                                       
+//     loop {                                                                      
+//         let input = io::stdin().read_line(">");
+//         match input.expect("Failed to read line").as_ref() {
+//             "me" => return true,                                          
+//             "you" => return false,
+//             _ => println!("Enter me or you"),
+//         }                                                                          
+//     }                                                                           
+// }
+
+fn hash_demo() {
+    let mut heroes = HashMap::new();
+    heroes.insert("Superman", "Clark Kent");
+    heroes.insert("Batman", "Bruce Wayen");
+    heroes.insert("Flash", "Barry Allen");
+
+    for (k, v) in heroes.iter() {
+        println!("{} = {}", k, v);
+    }
+
+    println!("Length of HashMap: {}", heroes.len());
+
+    if heroes.contains_key(&"Batman") {
+        let the_batman = heroes.get(&"Batman");
+        match the_batman {
+            Some(x) => println!("A... {}", x),
+            None => println!("eh."),
+        }
+    }
+}
+
+
+
+
+fn main() {
+    // greet_user();
+    // var_demo();
+    // data_types_demo();
+    // ternary_demo();
+    // match_demo();
+    // array_looping_demo();
+    // tuple_demo();
+    // string_demo();
+    // casting_demo();
+    // enum_demo();
+    // vectors_demo();
+    // functions_demo();
+    // generics_demo();
+    // ownership_demo();
+    hash_demo();
 }
