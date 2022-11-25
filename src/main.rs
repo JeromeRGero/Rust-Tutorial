@@ -395,8 +395,67 @@ fn hash_demo() {
     }
 }
 
+fn struct_demo() {
+    struct Status {
+        name: String,
+        def: String,
+        level: u32
+    }
+    let mut hark = Status {
+        name: String::from("(u.u)"),
+        def: String::from("sleepsleepsleepsleepsleep"),
+        level: 33
+    };
+    hark.def = String::from("..");
+    println!("{}", hark.def);
+    struct Rectangle<T, U> {
+        length: T,
+        height: U
+    }
+    let rec = Rectangle {
+        length: 4, height: 10.5
+    };
+    
+}
 
+fn trait_demo() {
+    const PI: f32 = 3.141592;
+    trait Shape {
+        fn new(length: f32, width: f32) -> Self;
+        fn area(&self) -> f32;
+    }
+    struct Rectangle {
+        length: f32,
+        width: f32
+    }
+    struct Circle {
+        length: f32,
+        width: f32
+    }
+    impl Shape for Rectangle {
+        fn new(length: f32, width: f32) -> Rectangle {
+            return Rectangle { length, width }
+        }
+        fn area(&self) -> f32 {
+            return self.length * self.width;
+        }
+    }
+    impl Shape for Circle {
+        fn new(length: f32, width: f32) -> Circle {
+            return Circle { length, width }
+        }
+        fn area(&self) -> f32 {
+            return (self.length / 2.0).powf(2.0) * PI;
+        }
+    }
 
+    let rec: Rectangle = Shape::new(10.0, 10.0);
+    let cir: Circle = Shape::new(10.0, 10.0);
+    println!("rectangle area: [{}], circle area: [{}]", rec.area(), cir.area());
+}
+
+mod restaurant;
+use crate::restaurant::{ order_food, meal::Meal }; 
 
 fn main() {
     // greet_user();
@@ -413,5 +472,10 @@ fn main() {
     // functions_demo();
     // generics_demo();
     // ownership_demo();
-    hash_demo();
+    // hash_demo();
+    // struct_demo();
+    // trait_demo();
+    order_food(Meal::Lunch);
+    order_food(Meal::Dinner);
+    order_food(Meal::Breakfast);
 }
