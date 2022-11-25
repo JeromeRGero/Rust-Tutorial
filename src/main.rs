@@ -1,14 +1,14 @@
 #![allow(unused)]
 
-use rand::Rng;
 use core::num;
+use rand::Rng;
+use std::any::type_name;
 use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io;
-use std::io::{ BufRead, BufReader, ErrorKind, Write };
+use std::io::{BufRead, BufReader, ErrorKind, Write};
 use std::ops::Add;
-use std::any::type_name;
 
 pub fn greet_user() {
     let mut name = String::new();
@@ -18,7 +18,7 @@ pub fn greet_user() {
     io::stdin()
         .read_line(&mut name)
         .expect("Didn't Receive Input");
-    
+
     println!("{} {}!", greeting, name.trim_end());
 }
 
@@ -63,7 +63,7 @@ pub fn data_types_demo() {
     // f64: 1.2222222222222219
     let random_num: u64 = rand::thread_rng().gen_range(1..101);
     println!("random: {}", random_num);
-    
+
     let age = "30";
     let age: u32 = age.trim().parse().expect("Unable to change age to number");
     if (age >= 1) && (age <= 18) {
@@ -82,37 +82,37 @@ pub fn ternary_demo() {
     let can_vote = if my_age >= 18 { true } else { false };
     println!(
         "{} years old ability to vote is {}",
-        my_age, 
+        my_age,
         if can_vote { "valid" } else { "invalid" }
     );
 }
 
 pub fn match_demo() {
     let my_age: i32 = 18;
-    let voting_age:i32 = 18;
+    let voting_age: i32 = 18;
     let age2: i32 = 8;
     match my_age.cmp(&voting_age) {
         Ordering::Less => println!("{} is not old enough!", my_age),
         Ordering::Equal => println!("By the skin of your teeth. {}", my_age),
-        Ordering::Greater => println!("{} is old enough to vote", my_age)
+        Ordering::Greater => println!("{} is old enough to vote", my_age),
     }
     match age2 {
-        1..=18 =>  println!("Important Birthday: {}", age2),
+        1..=18 => println!("Important Birthday: {}", age2),
         21 | 50 => println!("Important Birthday: {}", age2),
         65..=i32::MAX => println!("Important Birthday: {}", age2),
-        _ =>  println!("NOT an Important Birthday: {} looserlooserlooser~", age2)
+        _ => println!("NOT an Important Birthday: {} looserlooserlooser~", age2),
     }
 }
 
 pub fn array_looping_demo() {
-    let arr_1 = [1,2,3,4];
-    
+    let arr_1 = [1, 2, 3, 4];
+
     println!("1st: {}", arr_1[0]);
     println!("length: {}", arr_1.len());
-    
-    let mut arr_2 = [1,2,3,4,5,6,7,8,9];
+
+    let mut arr_2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     let mut loop_idx = 0;
-    
+
     loop {
         if arr_2[loop_idx] % 2 == 0 {
             loop_idx += 1;
@@ -126,7 +126,7 @@ pub fn array_looping_demo() {
         println!("Val: {}", arr_2[loop_idx]);
         loop_idx += 1
     }
-    
+
     loop_idx = 0;
     print!("Array 2 contains: ");
     while loop_idx < arr_2.len() {
@@ -142,7 +142,10 @@ pub fn array_looping_demo() {
 
 pub fn tuple_demo() {
     let my_tuple: (u8, String, f64) = (30, "Jerome".to_string(), 68_000.00);
-    println!("Name: {}, Age: {}, Something: {}", my_tuple.1, my_tuple.0, my_tuple.2);
+    println!(
+        "Name: {}, Age: {}, Something: {}",
+        my_tuple.1, my_tuple.0, my_tuple.2
+    );
     // A perfect example of pattern matching.
     let (age, name, monies) = my_tuple;
     println!("Name: {}, Age: {}, Something: {}", name, age, monies);
@@ -157,10 +160,13 @@ pub fn string_demo() {
     io::stdin()
         .read_line(&mut desired_char_name)
         .expect("No name entered.");
-    
+
     desired_char_name = desired_char_name.trim_end().to_string();
-    
-    println!("No... your name is not {}, its {}.", desired_char_name, char_name);
+
+    println!(
+        "No... your name is not {}, its {}.",
+        desired_char_name, char_name
+    );
     for word in desired_char_name.split_whitespace() {
         println!("{},", word);
     }
@@ -169,7 +175,7 @@ pub fn string_demo() {
     for word in replaced.split_whitespace() {
         println!("{},", word);
     }
-    
+
     let friend = String::from("YouYouYouYouYou");
     let mut v1: Vec<char> = friend.chars().collect();
     v1.sort();
@@ -203,14 +209,14 @@ pub fn enum_demo() {
         Thursday,
         Friday,
         Saturday,
-        Sunday
+        Sunday,
     }
 
     impl Days {
         fn is_weekend(&self) -> bool {
             match self {
                 Days::Saturday | Days::Sunday => true,
-                _ => false
+                _ => false,
             }
         }
     }
@@ -222,21 +228,23 @@ pub fn enum_demo() {
         Days::Wednesday => println!("Hump day"),
         Days::Thursday => println!("void"),
         Days::Friday => println!("I'm so close!"),
-        _ => println!("Weekend")
-
+        _ => println!("Weekend"),
     }
 
-    println!("Is today the weekend?... {}", if today.is_weekend() {"YES"} else {"NUH"});
+    println!(
+        "Is today the weekend?... {}",
+        if today.is_weekend() { "YES" } else { "NUH" }
+    );
 }
 
 pub fn vectors_demo() {
     // vectors are like arrays, in that they can grow if mutable.
     // they can only store values of the same type.
     let mut vec1: Vec<i32> = Vec::new();
-    let mut vec2 = vec![1,2,3,4];
-    let mut vec3 = vec![5,6,7];
+    let mut vec2 = vec![1, 2, 3, 4];
+    let mut vec3 = vec![5, 6, 7];
     vec2.append(&mut vec3.clone());
-    assert_eq!(vec2, vec![1,2,3,4,5,6,7]);
+    assert_eq!(vec2, vec![1, 2, 3, 4, 5, 6, 7]);
     vec3.append(&mut vec2.clone());
     println!("vec3:");
     for ele in &vec3 {
@@ -277,10 +285,10 @@ pub fn vectors_demo() {
         println!("idx: {}, val: {}", i, val);
     }
 
-     // Get number of values in a vector
+    // Get number of values in a vector
     println!("Vec Length : {}", &vec2.len());
 
-     let mut i = 0;
+    let mut i = 0;
     for val in &mut vec2 {
         i += 1;
         println!("idx: {}, val: {}", i, val);
@@ -297,7 +305,6 @@ pub fn vectors_demo() {
     // Remove and return the last value
     println!("Pop {:?}", &mut vec2.pop());
     println!("Vec Length : {}", vec2.len());
-
 }
 
 fn functions_demo() {
@@ -305,14 +312,14 @@ fn functions_demo() {
     let (plus, times) = get_two_from_1(x);
     println!("{}, plus 2: {}, times 2: {}", x, plus, times);
 
-    let num_list = vec![0,1,2,3,4,5,6,7,8,9,10];
+    let num_list = vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     let sum = sum_list(&num_list);
-    let num_list_squared: Vec<i32> = num_list.iter().map(|x| x*x).collect();
+    let num_list_squared: Vec<i32> = num_list.iter().map(|x| x * x).collect();
     num_list_squared.iter().for_each(|x| println!("{}", x));
 }
 
 fn get_two_from_1(x: i32) -> (i32, i32) {
-    return (x+2, x*2);
+    return (x + 2, x * 2);
 }
 
 fn sum_list(list: &[i32]) -> i32 {
@@ -327,11 +334,23 @@ fn generics_demo() {
     let test_one = assert_eq!(c, get_sum_gen(a, b));
     println!("{}", type_of(test_one));
     println!("{}", type_of(&test_one));
-    println!("{} + {} = {}, this is {:#?}", a, b, c, assert_eq!(c, get_sum_gen(a, b)));
-    println!("{} + {} = {}, this is {:#?}", x, y, z, assert_eq!(z, get_sum_gen(x, y)));
+    println!(
+        "{} + {} = {}, this is {:#?}",
+        a,
+        b,
+        c,
+        assert_eq!(c, get_sum_gen(a, b))
+    );
+    println!(
+        "{} + {} = {}, this is {:#?}",
+        x,
+        y,
+        z,
+        assert_eq!(z, get_sum_gen(x, y))
+    );
 }
 
-fn get_sum_gen<T:Add<Output = T>>(x: T, y: T) -> T {
+fn get_sum_gen<T: Add<Output = T>>(x: T, y: T) -> T {
     return x + y;
 }
 
@@ -362,16 +381,16 @@ fn cs(x: &mut String) {
     println!("message: {}", x);
 }
 
-// fn player_starts() -> bool {                                                    
-//     println!("Who will start (me/you)");                                       
-//     loop {                                                                      
+// fn player_starts() -> bool {
+//     println!("Who will start (me/you)");
+//     loop {
 //         let input = io::stdin().read_line(">");
 //         match input.expect("Failed to read line").as_ref() {
-//             "me" => return true,                                          
+//             "me" => return true,
 //             "you" => return false,
 //             _ => println!("Enter me or you"),
-//         }                                                                          
-//     }                                                                           
+//         }
+//     }
 // }
 
 fn hash_demo() {
@@ -399,23 +418,23 @@ fn struct_demo() {
     struct Status {
         name: String,
         def: String,
-        level: u32
+        level: u32,
     }
     let mut hark = Status {
         name: String::from("(u.u)"),
         def: String::from("sleepsleepsleepsleepsleep"),
-        level: 33
+        level: 33,
     };
     hark.def = String::from("..");
     println!("{}", hark.def);
     struct Rectangle<T, U> {
         length: T,
-        height: U
+        height: U,
     }
     let rec = Rectangle {
-        length: 4, height: 10.5
+        length: 4,
+        height: 10.5,
     };
-    
 }
 
 fn trait_demo() {
@@ -426,15 +445,15 @@ fn trait_demo() {
     }
     struct Rectangle {
         length: f32,
-        width: f32
+        width: f32,
     }
     struct Circle {
         length: f32,
-        width: f32
+        width: f32,
     }
     impl Shape for Rectangle {
         fn new(length: f32, width: f32) -> Rectangle {
-            return Rectangle { length, width }
+            return Rectangle { length, width };
         }
         fn area(&self) -> f32 {
             return self.length * self.width;
@@ -442,7 +461,7 @@ fn trait_demo() {
     }
     impl Shape for Circle {
         fn new(length: f32, width: f32) -> Circle {
-            return Circle { length, width }
+            return Circle { length, width };
         }
         fn area(&self) -> f32 {
             return (self.length / 2.0).powf(2.0) * PI;
@@ -451,11 +470,33 @@ fn trait_demo() {
 
     let rec: Rectangle = Shape::new(10.0, 10.0);
     let cir: Circle = Shape::new(10.0, 10.0);
-    println!("rectangle area: [{}], circle area: [{}]", rec.area(), cir.area());
+    println!(
+        "rectangle area: [{}], circle area: [{}]",
+        rec.area(),
+        cir.area()
+    );
+}
+
+
+fn err_and_file_demo() {
+    let path = "lines.txt";
+    let output = File::create(path);
+    let mut output = match output {
+        Ok(file) => file,
+        Err(error) => panic!("Problem creating file: {:?}", error)
+    };
+    write!(output, "Just some\nRandom Words").expect("Failed to write to file.");
+
+    let input = File::open(path).unwrap();
+    let buffered = BufReader::new(input);
+    
+    for line in buffered.lines() {
+        println!("{}", line.unwrap());
+    }
 }
 
 mod restaurant;
-use crate::restaurant::{ order_food, meal::Meal }; 
+use crate::restaurant::{meal::Meal, order_food};
 
 fn main() {
     // greet_user();
@@ -478,4 +519,5 @@ fn main() {
     order_food(Meal::Lunch);
     order_food(Meal::Dinner);
     order_food(Meal::Breakfast);
+    // err_and_file_demo();
 }
