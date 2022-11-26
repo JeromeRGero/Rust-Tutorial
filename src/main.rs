@@ -493,6 +493,19 @@ fn err_and_file_demo() {
     for line in buffered.lines() {
         println!("{}", line.unwrap());
     }
+
+    let output2 = File::create("rand.txt");
+
+    let output2 = match output2 {
+        Ok(file) => file,
+        Err(error) => match error.kind() {
+            ErrorKind::NotFound => match File::create("rand.txt") {
+                Ok(fc) => fc,
+                Err(e) => panic!("Can't create file: {:?}", e),
+            },
+            _other_errors => panic!("Problem opening file: {:?}", error),
+        },
+    };
 }
 
 mod restaurant;
@@ -516,8 +529,9 @@ fn main() {
     // hash_demo();
     // struct_demo();
     // trait_demo();
-    order_food(Meal::Lunch);
-    order_food(Meal::Dinner);
-    order_food(Meal::Breakfast);
-    // err_and_file_demo();
+    // order_food(Meal::Lunch);
+    // order_food(Meal::Dinner);
+    // order_food(Meal::Breakfast);
+    err_and_file_demo();
+
 }
